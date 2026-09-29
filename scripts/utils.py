@@ -1,7 +1,7 @@
 import gzip
 import json
 from time import time
-
+# Added import time 
 
 def read_data(jsonfilename):
     t0 = time()
