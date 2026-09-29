@@ -1,0 +1,6 @@
+# ignore Python cache
+__pycache__
+.ipynb_checkpoints
+
+# ignore downloaded/derived data
+datasets/data/

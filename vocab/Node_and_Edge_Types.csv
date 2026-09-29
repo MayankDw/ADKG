@@ -1,0 +1,54 @@
+﻿Alzheimer's Disease Knowledge Graph - Node Types vs. Edge Types (derived from Papers folder),,,,
+,,,,
+NODE TYPES  (entities that become nodes in the AD Knowledge Graph),,,,
+Node Type,Description,Example Identifier Format,Supporting Data Sources,Count of Papers Referencing
+Disease,A distinct disease/diagnosis entity,MONDO:xxxxxxx / DOID:xxxxx / OMIM:xxxxxx,"Alzheimer's Disease Ontology (ADO), CVD Atlas, DISEASES database, DO (Disease Ontology), Disease Ontology, Disease Ontology (DO), Human Disease Ontology, ICD-10/11, MONDO, MONDO Disease Ontology, Mayo Clinic, Mayo Clinic Brain Bank, OMIM, ORPHANET, Orphanet, PolySearch2, Rare diseases KG (GARD-derived), SNOMED (clinical resource), SNOMED CT, SNOMED-CT",11
+Phenotype / Effect,"Clinical sign, symptom, or observable trait (incl. side effects)",HP:xxxxxxx,"ADNI Data Dictionary, HPO (Human Phenotype Ontology), Human Phenotype Ontology, Human Phenotype Ontology (HPO), SIDER, SIDER (Side Effect Resource)",7
+Gene / Protein,Gene or protein/gene-product entity,HGNC:xxxx / UniProt:Pxxxxx / Ensembl:ENSGxxxxxxxxx,"Ensembl, Entrez Gene, Entrez Gene (NCBI Gene), Gene2GO, HGNC, HGNC (HUGO Gene Nomenclature Committee), HGNC (Human Gene Nomenclature), HPA (Human Protein Atlas), Human Protein Atlas, InterPro, NCBI Gene, PRO (Protein Ontology), ProteinKG25, UniProt, UniProtKB",7
+Drug / Chemical / Compound,"Drug, chemical, or small-molecule compound",DrugBank:DBxxxxx / ChEMBL:CHEMBLxxxx / PubChem CID,"Broad Institute Drug Repurposing Hub, ChEBI, ChEMBL, DRON (Drug Ontology), Drug Central, DrugBank, DrugBank (source database within DRKG), DrugCentral, MeSH, PubChem, PubChem BioAssay Dataset",14
+Anatomy,Anatomical structure or tissue,UBERON:xxxxxxx,"Brenda Tissue Ontology (BTO), Uberon",3
+Pathway,Biological pathway,REACT:Rxxxxxxxx / KEGG:hsaxxxxx,"KEGG, KEGG (Kyoto Encyclopedia of Genes and Genomes), Reactome, WikiPathways",5
+Biological Process / Molecular Function / Cellular Component (GO),"Gene Ontology term describing a process, function, or cellular location",GO:xxxxxxx,"Gene Ontology, Gene Ontology (GO), Gene Ontology (GO, via clusterProfiler), Gene2GO",7
+Exposure,"Environmental, dietary, or toxicological exposure",CTD exposure ID / FOODON:xxxxxxx,"CTD (Comparative Toxicogenomics Database), CTDbase (Comparative Toxicogenomics Database), Comparative Toxicogenomics Database (CTD), FoodOn",6
+Variant / Mutation,Genetic variant or mutation,rsID / ClinVar VCV / GWAS Catalog variant ID,"ClinVar, DECIPHER, GWAS Catalog, dbSNP",4
+Species / Taxon,Organism/species classification,NCBITaxon:xxxx,"NCBI Taxonomy, NCBITaxon (NCBI Taxonomy)",3
+Cell / Cell Line,Cell type or immortalized cell line,CL:xxxxxxx / CVCL_xxxx,"Cell Ontology (CL), Cellosaurus",2
+Patient / Sample / Cohort,"Individual patient, biospecimen, or study cohort",Cohort-specific subject/sample ID,"ADAMS autopsy cohort, ADNI (Alzheimer's Disease Neuroimaging Initiative), ADNI Data Dictionary, AIBL, All of Us Research Program, Alzheimer's Disease Neuroimaging Initiative (ADNI), Atherosclerosis Risk in Communities (ARIC) study, EHRs (Electronic Health Records), Framingham Heart Study, Health and Retirement Study (HRS) 2016 Venous Blood Study, MIMIC-III, MIMIC-IV, MSBB (Mount Sinai Brain Bank), Mayo Clinic Brain Bank, NACC (National Alzheimer's Coordinating Center), NACC uniform dataset, OASIS, OASIS (Open Access Series of Imaging Studies / OASIS-3), Optum de-identified EHR database, RADC (Rush Alzheimer's Disease Center Research Resource Sharing Hub), ROSMAP (Religious Orders Study and Memory and Aging Project), Rotterdam Study, TARCC (Texas Alzheimer's Research and Care Consortium), UK Biobank",10
+Clinical Trial / Study,Registered clinical trial or research study,NCTxxxxxxxx,"AACT (clinical trials registry), ClinicalTrials.gov",5
+Publication / Article,Scientific article or literature record,PMID / PMCID / DOI,"PMC Open Access Subset (BioC PMC API), PubMed, PubMed (2019 baseline files), PubMed (BioC PubMed API), PubMedQA, Semantic Scholar dataset",9
+Author / Institution / Funding,"Researcher, affiliation, or funding record",ORCID iD / NIH project number,"Author-ity dataset, MapAffil 2016 dataset, NIH ExPORTER, ORCID",1
+Metabolite,Small-molecule metabolite measured in omics assays,HMDB ID,"Alzheimer's Disease Metabolomics Consortium (ADMC), Metabolon",1
+RNA / Transcript,Non-coding RNA or transcript entity,RNAcentral ID,"RNA-KG, RNAcentral",1
+"Clinical Concept / Vocabulary (Diagnosis, Medication, Lab)","Standardized clinical terminology node (diagnosis, drug, or lab-test concept)",SNOMED CT ID / RxCUI / LOINC code / UMLS CUI,"LOINC, RxNorm, SNOMED (clinical resource), SNOMED CT, SNOMED-CT, UMLS, UMLS (Unified Medical Language System), UMLS Knowledgebase, UMLS Metathesaurus",11
+Genomic Region,Non-gene genomic locus/region,Genomic coordinates,GenomicKB,1
+Imaging / Neuroimaging Study,MRI/PET image or imaging dataset record,Imaging accession ID,"FreeSurfer fsaverage template, LONI Image and Data Archive (IDA), OpenNeuro, OpenNeuro EEG, fastMRI",2
+Generic Entity (cross-domain KG backbone),"General-purpose real-world entity used for schema alignment / entity linking, not biomedical-specific",Wikidata QID / DBpedia URI,"DBpedia, Freebase, Knowledge Vault, NELL (Never-Ending Language Learning), OpenCyc, Wikidata, Wikipedia, YAGO",7
+,,,,
+,,,,
+EDGE TYPES  (the rest - relationships/associations that become edges in the AD Knowledge Graph),,,,
+Edge Type (Relationship),Connects (Node A),Connects (Node B),Supporting Data Sources,Count of Papers Referencing
+Drug-Target (Gene/Protein) interaction,Drug,Gene/Protein,"BindingDB, ChEMBL, DRKG (Drug Repurposing Knowledge Graph), DrugBank, DrugBank (source database within DRKG), DrugMechDB, Hetionet (source database within DRKG), KD-DTI corpus, STRING (source database within DRKG), Supertarget, TTD (Therapeutic Target Database), TarKG",13
+Drug-Drug interaction (DDI),Drug,Drug,"DDI (SemEval-2013 Task 9 DDIExtraction), DDI extraction 2013 corpus, DrugBank, DrugBank (source database within DRKG), TWOSIDES",10
+Drug-Disease (indication / treatment / repurposing),Drug,Disease,"Broad Institute Drug Repurposing Hub, ClinicalTrials.gov, DRKG (Drug Repurposing Knowledge Graph), Drug Central, DrugBank (source database within DRKG), Hetionet (source database within DRKG), NCATS OpenData COVID-19 Portal, OREGANO, ReFRAME drug repurposing library, STRING (source database within DRKG)",8
+Drug-Phenotype (side effect),Drug,Phenotype,"SIDER, SIDER (Side Effect Resource), TWOSIDES",5
+Disease-Gene association,Disease,Gene/Protein,"BioRED, BioRED corpus, CTD (Comparative Toxicogenomics Database), CTDbase (Comparative Toxicogenomics Database), Comparative Toxicogenomics Database (CTD), DISEASES database, Menche et al. disease-gene association dataset, OMIM, PharmGKB",11
+Disease-Phenotype association,Disease,Phenotype,"Human Phenotype Ontology (HPO), UMLS, UMLS (Unified Medical Language System), UMLS Knowledgebase, UMLS Metathesaurus",10
+Gene/Protein-Pathway membership,Gene/Protein,Pathway,"KEGG, KEGG (Kyoto Encyclopedia of Genes and Genomes), Reactome",5
+Gene/Protein-GO term (BP/MF/CC) annotation,Gene/Protein,BP/MF/CC,"Gene Ontology, Gene Ontology (GO), Gene Ontology (GO, via clusterProfiler), Gene2GO",7
+Protein-Protein interaction (PPI),Protein,Protein,"BioGRID, Human Reference Interactome (HuRI), Human interactome (compiled from 21 public PPI databases), STRING, STRING (source database within DRKG)",6
+Anatomy-Gene/Protein expression,Anatomy,Gene/Protein,"Bgee, HPA (Human Protein Atlas), Human Protein Atlas",4
+Chemical/Drug-Disease association,Chemical,Disease,"BC5CDR corpus, BioCreative V CDR corpus (BC5CDR), CTD (Comparative Toxicogenomics Database), CTDbase (Comparative Toxicogenomics Database), Comparative Toxicogenomics Database (CTD)",7
+Chemical-Protein interaction,Chemical,Protein,ChemProt,1
+Exposure-Disease/Protein association,Exposure,Disease/Protein,CTD (Comparative Toxicogenomics Database),3
+Variant-Disease association,Variant,Disease,"ClinVar, DECIPHER, GWAS Catalog",3
+Gene-Variant-Patient/Genotype linkage,Gene/Variant,Patient,"All of Us Research Program, UK Biobank",3
+Patient-Biomarker / Patient-Diagnosis,Patient,Biomarker/Disease,"ADNI (Alzheimer's Disease Neuroimaging Initiative), ADNI Data Dictionary, Alzheimer's Disease Neuroimaging Initiative (ADNI), OASIS, OASIS (Open Access Series of Imaging Studies / OASIS-3), ROSMAP (Religious Orders Study and Memory and Aging Project), TARCC (Texas Alzheimer's Research and Care Consortium)",6
+Clinical Trial-Disease-Drug (Study-Condition-Intervention),Study,Disease/Drug,"AACT (clinical trials registry), ClinicalTrials.gov",5
+Literature-derived co-mention (Gene-Disease-Drug-Chemical-Variant-Species),Publication,Multiple entity types,"BioRED corpus, PubMed, PubMed (2019 baseline files), PubMed (BioC PubMed API), PubMedQA, PubTator 3.0, SemMedDB",9
+Ontology hierarchy (is-a / part-of),Same node type (self-referential),Same node type,"Alzheimer's Disease Ontology (ADO), DO (Disease Ontology), Disease Ontology, Disease Ontology (DO), HPO (Human Phenotype Ontology), Human Disease Ontology, Human Phenotype Ontology, Human Phenotype Ontology (HPO), MONDO, MONDO Disease Ontology, Uberon",6
+Author-Affiliation / PI-Study / PI-Article,Author,Institution/Study/Article,"NIH ExPORTER, ORCID",1
+Cross-ontology mapping (equivalence/xref),Concept,Concept (different vocabulary),"Bioregistry, OxO, UMLS, UMLS (Unified Medical Language System), UMLS Knowledgebase, UMLS Metathesaurus, Wikidata",13
+Species/Taxonomy classification,Gene/Protein/Sample,Species,"NCBI Taxonomy, NCBITaxon (NCBI Taxonomy)",3
+Virus-Host protein interaction,Viral Protein,Human Protein,Gordon et al. SARS-CoV-2-Human Protein Interaction Map,2
+RNA-RNA interaction,RNA,RNA,RNA-KG,1
+"Temporal / event edge (begin-end, existence-time, dated attribute)",Entity,Entity,"DBpedia, EventKG, Wikidata, YAGO",7
