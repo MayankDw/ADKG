@@ -1,0 +1,270 @@
+<title>AlzKG Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a lab-notebook page — pipeline strip (how the graph is made) above a
+   graph bench (canvas + specimen card for the selected node). */
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --fg: #18212c; --muted: #5a6574; --line: #d9dee5; --soft: #eceff3;
+  --c-disease: #b4233c; --c-gene: #0f766e; --c-variant: #a16207; --c-drug: #4f46e5;
+  --c-intervention: #64748b; --c-phenotype: #9d4e9f; --edge: #a9b2be;
+  --f-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e131a; --panel: #151c25; --fg: #e4e9ef; --muted: #98a3b1; --line: #263140; --soft: #1c2530;
+  --c-disease: #f0627a; --c-gene: #2dd4bf; --c-variant: #f2b84b; --c-drug: #8b8cf8;
+  --c-intervention: #9aa8bb; --c-phenotype: #d38ad4; --edge: #3d4a5b; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0e131a; --panel: #151c25; --fg: #e4e9ef; --muted: #98a3b1; --line: #263140; --soft: #1c2530;
+  --c-disease: #f0627a; --c-gene: #2dd4bf; --c-variant: #f2b84b; --c-drug: #8b8cf8;
+  --c-intervention: #9aa8bb; --c-phenotype: #d38ad4; --edge: #3d4a5b; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font: 15px/1.55 var(--f-body); margin: 0 }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; gap: 28px }
+header { display: grid; gap: 6px; max-width: 70ch }
+.eyebrow { font: 500 12px/1 var(--f-body); letter-spacing: .09em; text-transform: uppercase; color: var(--muted) }
+h1 { font: 600 clamp(28px, 4vw, 40px)/1.1 var(--f-display); margin: 0; text-wrap: balance }
+h2 { font: 600 21px/1.2 var(--f-display); margin: 0; text-wrap: balance }
+p { margin: 0 }
+.lede { color: var(--muted) }
+code, .mono { font-family: var(--f-mono); font-size: .86em }
+
+/* Pipeline */
+.pipeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); background: var(--panel); border-radius: 6px }
+.stage { padding: 18px 18px 20px; display: grid; gap: 10px; align-content: start; min-width: 0 }
+.stage + .stage { border-left: 1px solid var(--line) }
+.stage-head { display: flex; gap: 10px; align-items: baseline }
+.step { font: 500 12px/1 var(--f-mono); color: var(--muted) }
+.stage h3 { font: 600 15px/1.3 var(--f-body); margin: 0 }
+.stage p { font-size: 13.5px; color: var(--muted) }
+.big { font: 600 30px/1 var(--f-display); font-variant-numeric: tabular-nums }
+.big small { font: 400 13px var(--f-body); color: var(--muted); margin-left: 4px }
+.bars { display: grid; gap: 6px }
+.bar { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; font-size: 12.5px }
+.bar span:last-child { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--muted) }
+.bar i { grid-column: 1 / -1; height: 5px; background: var(--soft); border-radius: 3px; overflow: hidden; display: block }
+.bar i b { display: block; height: 100%; background: var(--fg); opacity: .75 }
+.bar.missing span:first-child { color: var(--muted) }
+.maps { display: grid; gap: 6px; font-size: 12.5px; margin: 0; padding: 0; list-style: none }
+.maps li { display: grid; grid-template-columns: 82px 1fr; gap: 8px; align-items: baseline }
+.maps code { color: var(--fg); overflow-wrap: anywhere }
+.types { display: flex; flex-wrap: wrap; gap: 6px }
+
+/* Bench */
+.bench-head { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; justify-content: space-between }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--fg);
+  border-radius: 999px; padding: 4px 10px; font: 500 12.5px var(--f-body); cursor: pointer }
+.chip .dot { width: 9px; height: 9px; border-radius: 50% }
+.chip[aria-pressed="false"] { opacity: .45 }
+.chip:focus-visible, input:focus-visible, .nbr:focus-visible { outline: 2px solid var(--c-drug); outline-offset: 2px }
+.chip.static { cursor: default }
+input[type="search"] { font: 14px var(--f-body); color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; width: 210px; max-width: 100% }
+.bench { display: grid; grid-template-columns: minmax(0, 1fr) 340px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--panel) }
+#graph { height: 640px; min-width: 0; background: var(--panel) }
+.card { border-left: 1px solid var(--line); padding: 18px; display: grid; gap: 14px; align-content: start; max-height: 640px; overflow: auto; min-width: 0 }
+.card h2 { overflow-wrap: anywhere }
+.kv { display: grid; grid-template-columns: 92px 1fr; gap: 4px 10px; font-size: 13px; margin: 0 }
+.kv dt { color: var(--muted) }
+.kv dd { margin: 0; overflow-wrap: anywhere }
+.type-pill { display: inline-flex; align-items: center; gap: 6px; font: 500 12px var(--f-body); color: var(--muted) }
+.nbrs { display: grid; gap: 2px }
+.nbr { display: grid; grid-template-columns: 10px 1fr; gap: 8px; padding: 6px 6px; border-radius: 4px; cursor: pointer; font-size: 13px; background: none; border: 0; color: inherit; text-align: left; font-family: inherit }
+.nbr:hover { background: var(--soft) }
+.nbr .dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px }
+.nbr small { display: block; color: var(--muted); font-size: 11.5px }
+.src { font: 500 10.5px var(--f-mono); border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; margin-right: 3px; color: var(--muted); white-space: nowrap }
+.section-label { font: 500 11.5px var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.foot { font-size: 13px; color: var(--muted); max-width: 80ch }
+
+@media (max-width: 900px) {
+  .pipeline { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .stage:nth-child(3) { border-left: 0 }
+  .stage:nth-child(n+3) { border-top: 1px solid var(--line) }
+  .bench { grid-template-columns: minmax(0, 1fr) }
+  #graph { height: 460px }
+  .card { border-left: 0; border-top: 1px solid var(--line); max-height: none }
+}
+@media (max-width: 520px) {
+  .wrap { padding-inline: 16px }
+  .pipeline { grid-template-columns: minmax(0, 1fr) }
+  .stage + .stage { border-left: 0; border-top: 1px solid var(--line) }
+  #graph { height: 400px }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Alzheimer's disease knowledge graph</span>
+    <h1>AlzKG Explorer</h1>
+    <p class="lede">Seven AD-specific datasets are filtered, mapped onto shared identifiers, and joined into one graph anchored on Alzheimer's disease (<code>MONDO:0004975</code>). The bench below shows its core: the most strongly supported genes, variants, subtypes and drugs.</p>
+  </header>
+
+  <section aria-labelledby="how">
+    <h2 id="how" style="margin-bottom:12px">How the graph is built</h2>
+    <div class="pipeline">
+      <div class="stage">
+        <div class="stage-head"><span class="step">1</span><h3>Pull AD evidence from each source</h3></div>
+        <div class="bars" id="bars"></div>
+      </div>
+      <div class="stage">
+        <div class="stage-head"><span class="step">2</span><h3>Harmonize identifiers</h3></div>
+        <p>Each source names the same thing differently. Every node is mapped to one canonical id.</p>
+        <ul class="maps">
+          <li><span>Genes</span><code>APOE · 348 · PA55 → NCBIGene:348</code></li>
+          <li><span>Variants</span><code>RS#:429358 · ClinVar · GWAS → rs429358</code></li>
+          <li><span>AD</span><code>MESH:D000544 · PA443319 · "Probable Alzheimer's Disease" → MONDO:0004975</code></li>
+          <li><span>Drugs</span><code>merged by normalized name</code></li>
+        </ul>
+      </div>
+      <div class="stage">
+        <div class="stage-head"><span class="step">3</span><h3>Restrict to the AD neighborhood</h3></div>
+        <p>Keep edges within two hops of an AD node: direct evidence plus the second hop that matters for repurposing (gene → drug).</p>
+        <div class="big" id="ad-degree"></div>
+      </div>
+      <div class="stage">
+        <div class="stage-head"><span class="step">4</span><h3>Indexed graph</h3></div>
+        <div class="big" id="totals"></div>
+        <div class="types" id="type-counts"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="bench-title" style="display:grid;gap:12px">
+    <div class="bench-head">
+      <div style="display:grid;gap:4px">
+        <h2 id="bench-title">Core subgraph</h2>
+        <p class="lede" id="bench-sub" style="font-size:13.5px"></p>
+      </div>
+      <div class="tools">
+        <label for="q" class="section-label" style="letter-spacing:.06em">Find</label>
+        <input id="q" type="search" placeholder="APOE, donepezil, rs429358…" autocomplete="off">
+      </div>
+    </div>
+    <div class="tools" id="filters" aria-label="Filter node types"></div>
+    <div class="bench">
+      <div id="graph" role="img" aria-label="Interactive network of Alzheimer's disease and connected genes, variants, subtypes and drugs"></div>
+      <aside class="card" id="card" aria-live="polite"></aside>
+    </div>
+    <p class="foot">Edge colors are neutral; each link lists every dataset that asserts it. Click a node to inspect it, or a neighbor in the card to walk the graph. DisGeNET and NIAGADS need manual downloads and are not in this build.</p>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js"></script>
+<script>
+const D = /*__DATA__*/null;
+const TYPES = {
+  "disease": ["Disease", "--c-disease"],
+  "gene/protein": ["Gene / protein", "--c-gene"],
+  "variant": ["Variant", "--c-variant"],
+  "drug/chemical/compound": ["Drug / compound", "--c-drug"],
+  "clinical_intervention": ["Trial intervention", "--c-intervention"],
+  "effect/phenotype": ["Phenotype", "--c-phenotype"],
+};
+const fmt = n => n.toLocaleString("en-US");
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const color = t => css((TYPES[t] || TYPES["clinical_intervention"])[1]);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// ---- Pipeline strip ----
+const S = D.summary;
+const maxSrc = Math.max(...Object.values(S.per_source));
+document.getElementById("bars").innerHTML = Object.entries(S.per_source)
+  .sort((a, b) => b[1] - a[1])
+  .map(([k, v]) => `<div class="bar${v ? "" : " missing"}"><span>${esc(k)}</span><span>${v ? fmt(v) : "manual download"}</span><i><b style="width:${v ? Math.max(2, 100 * v / maxSrc) : 0}%"></b></i></div>`).join("");
+document.getElementById("ad-degree").innerHTML = `${fmt(S.ad_degree)}<small>edges touch AD directly</small>`;
+document.getElementById("totals").innerHTML = `${fmt(S.final_nodes)}<small>nodes</small> ${fmt(S.final_edges)}<small>edges</small>`;
+document.getElementById("type-counts").innerHTML = Object.entries(S.node_types)
+  .map(([t, n]) => `<span class="chip static"><span class="dot" data-type="${esc(t)}"></span>${esc((TYPES[t] || [t])[0])} <span class="mono">${fmt(n)}</span></span>`).join("");
+document.getElementById("bench-sub").textContent =
+  `${S.subgraph_nodes} of ${fmt(S.final_nodes)} nodes and ${S.subgraph_links} of ${fmt(S.final_edges)} edges, chosen for multi-source support and clinical relevance.`;
+
+// ---- Graph ----
+const byId = new Map(D.nodes.map(n => [n.id, n]));
+const adj = new Map(D.nodes.map(n => [n.id, []]));
+D.links.forEach(l => { adj.get(l.from).push([l.to, l]); adj.get(l.to).push([l.from, l]); });
+const hidden = new Set();
+
+function nodeStyle(n) {
+  const isAD = n.id === D.ad, c = color(n.type);
+  return {
+    id: n.id, label: n.label, shape: "dot",
+    size: isAD ? 30 : 7 + Math.min(14, Math.sqrt(adj.get(n.id).length) * 3),
+    color: { background: c, border: c, highlight: { background: c, border: css("--fg") }, hover: { background: c, border: css("--fg") } },
+    font: { color: css("--fg"), face: "Public Sans, system-ui, sans-serif", size: isAD ? 17 : 12,
+            strokeWidth: 3, strokeColor: css("--panel"), bold: isAD ? { color: css("--fg") } : undefined },
+    borderWidth: isAD ? 3 : 1, hidden: hidden.has(n.type),
+  };
+}
+const nodes = new vis.DataSet(D.nodes.map(nodeStyle));
+const edges = new vis.DataSet(D.links.map((l, i) => ({
+  id: i, from: l.from, to: l.to, width: Math.min(4, 0.6 + l.sources.length * 0.6),
+  color: { color: css("--edge"), highlight: css("--fg"), hover: css("--muted") },
+  title: `${l.labels.join("; ")}\n${l.sources.join(", ")}`,
+})));
+const net = new vis.Network(document.getElementById("graph"), { nodes, edges }, {
+  physics: { solver: "forceAtlas2Based", forceAtlas2Based: { gravitationalConstant: -60, springLength: 90, avoidOverlap: 0.4 },
+             stabilization: { iterations: 400 } },
+  interaction: { hover: true, tooltipDelay: 120, navigationButtons: false, keyboard: false },
+  edges: { smooth: false },
+});
+net.once("stabilizationIterationsDone", () => { net.setOptions({ physics: false }); select(D.ad); });
+
+function select(id, focus) {
+  const n = byId.get(id); if (!n) return;
+  net.selectNodes([id]);
+  if (focus) net.focus(id, { scale: 1.1, animation: { duration: 500, easingFunction: "easeInOutQuad" } });
+  const groups = {};
+  adj.get(id).forEach(([o, l]) => { const t = byId.get(o).type; (groups[t] ||= []).push([byId.get(o), l]); });
+  const list = Object.entries(groups).sort((a, b) => b[1].length - a[1].length).map(([t, arr]) =>
+    `<div class="section-label">${esc((TYPES[t] || [t])[0])} · ${arr.length}</div><div class="nbrs">` +
+    arr.sort((a, b) => b[1].sources.length - a[1].sources.length).map(([o, l]) =>
+      `<button class="nbr" data-id="${o.id}"><span class="dot" style="background:${color(o.type)}"></span><span>${esc(o.name)}<small>${esc(l.labels[0] || l.relation)} ${l.sources.map(s => `<span class="src">${esc(s)}</span>`).join("")}</small></span></button>`).join("") +
+    `</div>`).join("");
+  document.getElementById("card").innerHTML = `
+    <span class="type-pill"><span class="dot" style="width:9px;height:9px;border-radius:50%;background:${color(n.type)}"></span>${esc((TYPES[n.type] || [n.type])[0])}</span>
+    <h2>${esc(n.name)}</h2>
+    <dl class="kv"><dt>Identifier</dt><dd class="mono">${esc(n.cid)}</dd>
+      <dt>Vocabulary</dt><dd>${esc(n.vocab)}</dd>
+      <dt>Edges in full graph</dt><dd class="mono">${fmt(n.degree)}</dd></dl>
+    ${list || '<p class="lede">No neighbors in this view.</p>'}`;
+}
+net.on("click", e => { if (e.nodes.length) select(e.nodes[0]); });
+document.getElementById("card").addEventListener("click", e => {
+  const b = e.target.closest(".nbr"); if (b) select(+b.dataset.id, true);
+});
+
+// ---- Filters & search ----
+const present = [...new Set(D.nodes.map(n => n.type))];
+const filters = document.getElementById("filters");
+filters.innerHTML = present.map(t => `<button class="chip" aria-pressed="true" data-type="${esc(t)}"><span class="dot" data-type="${esc(t)}"></span>${esc((TYPES[t] || [t])[0])}</button>`).join("");
+filters.addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const t = b.dataset.type, on = b.getAttribute("aria-pressed") === "true";
+  b.setAttribute("aria-pressed", String(!on));
+  on ? hidden.add(t) : hidden.delete(t);
+  nodes.update(D.nodes.filter(n => n.type === t && n.id !== D.ad).map(n => ({ id: n.id, hidden: on })));
+});
+document.getElementById("q").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase(); if (q.length < 2) return;
+  const hit = D.nodes.find(n => n.name.toLowerCase() === q || n.cid.toLowerCase() === q)
+           || D.nodes.find(n => n.name.toLowerCase().includes(q) || n.cid.toLowerCase().includes(q));
+  if (hit) select(hit.id, true);
+});
+
+// ---- Theme ----
+function paintDots() { document.querySelectorAll(".dot[data-type]").forEach(d => d.style.background = color(d.dataset.type)); }
+function retheme() {
+  paintDots();
+  nodes.update(D.nodes.map(nodeStyle));
+  edges.update(edges.get().map(e => ({ id: e.id, color: { color: css("--edge"), highlight: css("--fg"), hover: css("--muted") } })));
+  const sel = net.getSelectedNodes()[0]; if (sel !== undefined) select(sel);
+}
+paintDots();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", retheme);
+new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>

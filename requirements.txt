@@ -4,3 +4,6 @@ requests
 tqdm
 jupyter
 notebook
+nbconvert
+nbformat
+ipykernel

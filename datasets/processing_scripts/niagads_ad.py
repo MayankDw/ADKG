@@ -21,12 +21,16 @@ headers vary slightly by NIAGADS release.
 """
 import argparse
 import re
+import sys
+from pathlib import Path
+
 import pandas as pd
 
+DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "niagads"
 ACCESSION = "NG00075"  # Kunkle et al. 2019 IGAP stage 1, by default
-IN_PATH = "../data/niagads/NG00075_summary_stats.tsv"
-OUT_VARIANT_DISEASE = "../data/niagads/niagads_variant_disease.csv"
-OUT_GENE_DISEASE = "../data/niagads/niagads_gene_disease.csv"
+IN_PATH = DATA_DIR / "NG00075_summary_stats.tsv"
+OUT_VARIANT_DISEASE = DATA_DIR / "niagads_variant_disease.csv"
+OUT_GENE_DISEASE = DATA_DIR / "niagads_gene_disease.csv"
 
 # Anchor disease node for this whole dataset (genome-wide AD case-control GWAS).
 AD_DISEASE_ID = "MONDO:0004975"
@@ -57,7 +61,8 @@ def load_summary_stats(path):
 
 
 def filter_genome_wide_significant(df, threshold=PVALUE_GENOME_WIDE_SIGNIFICANT):
-    return df.query("Pvalue <= @threshold").copy()
+    pvalues = pd.to_numeric(df["Pvalue"], errors="coerce")
+    return df.loc[pvalues <= threshold].assign(Pvalue=pvalues).copy()
 
 
 def build_variant_disease_edges(sig_df, accession):
@@ -102,6 +107,11 @@ if __name__ == "__main__":
     parser.add_argument("--accession", default=ACCESSION)
     parser.add_argument("--in-path", default=IN_PATH)
     args = parser.parse_args()
+
+    if not Path(args.in_path).exists():
+        print(f"[skip] {args.in_path} not found. NIAGADS summary statistics must be requested and\n"
+              "       downloaded manually (see this script's docstring), then re-run with --in-path.")
+        sys.exit(0)
 
     summary_stats = load_summary_stats(args.in_path)
     sig = filter_genome_wide_significant(summary_stats)

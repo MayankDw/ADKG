@@ -50,7 +50,9 @@ AlzKG/
 │   │   └── pubtator_literature_ad.py  # PubTator3 API -> literature co-mention triples (re-runnable/incremental)
 │   └── data/                          # gitignored; created by primary_data_resources.sh
 ├── knowledge_graph/
-│   └── build_ad_kg.ipynb              # harmonizes all of the above (+ PrimeKG's generic outputs) into ad_kg.csv
+│   ├── build_ad_kg.ipynb              # harmonizes all of the above (+ PrimeKG's generic outputs) into ad_kg.csv
+│   ├── visualize_ad_kg.py             # writes an interactive HTML explorer of the core AD subgraph
+│   └── ad_kg_explorer_template.html   # page template used by visualize_ad_kg.py
 ├── case_study/
 │   └── alzheimers_disease.ipynb       # queries ad_kg.csv, mirrors PrimeKG/case_study/autism.ipynb
 ├── scripts/
@@ -70,8 +72,12 @@ Every processing script emits rows with the same 10 columns PrimeKG's
 relation, display_relation, x_id, x_type, x_name, x_source, y_id, y_type, y_name, y_source
 ```
 
-`knowledge_graph/build_ad_kg.ipynb` adds `x_index`/`y_index` after deduplicating
-nodes. See `vocab/Node_and_Edge_Types.csv` for the full catalog of node types
+`knowledge_graph/build_ad_kg.ipynb` harmonizes entities across sources (genes ->
+`NCBIGene:<id>` via NCBI `gene_info`, variants -> dbSNP `rs<id>`, every spelling of
+Alzheimer's disease -> `MONDO:0004975`, drugs/other diseases merged by normalized
+name), links AD subtypes to the AD node, restricts the graph to the 2-hop AD
+neighborhood, then adds `x_index`/`y_index` and one extra column, `edge_source`
+(the dataset that asserted the edge, since merged nodes no longer say). See `vocab/Node_and_Edge_Types.csv` for the full catalog of node types
 (Disease, Gene/Protein, Drug/Chemical/Compound, Variant/Mutation, Clinical
 Trial/Study, Publication/Article, ...) and edge types (Drug-Target,
 Disease-Gene, Variant-Disease, Drug-Disease via clinical trial, literature
@@ -80,24 +86,37 @@ co-mention, ...) this schema is meant to cover.
 ## Building the graph
 
 ```bash
-# 1. Generic ontology/pathway/interaction sources (shared with any disease).
-#    Run once; reused by both PrimeKG and AlzKG.
+pip install -r requirements.txt
+
+# 1. (Optional) Generic ontology/pathway/interaction sources from PrimeKG.
+#    build_ad_kg.ipynb skips them if ../PrimeKG is not present.
 cd ../PrimeKG/datasets && bash primary_data_resources.sh && cd ../../AlzKG
 
-# 2. AD-specific sources.
+# 2. AD-specific sources (~700 MB of downloads on first run; cached afterwards).
 cd datasets && bash primary_data_resources.sh && cd ..
 
-# 3. Harmonize into ad_kg.csv.
-jupyter nbconvert --to notebook --execute knowledge_graph/build_ad_kg.ipynb
+# 3. Harmonize into ad_kg.csv / ad_kg_nodes.csv.
+python -m nbconvert --to notebook --execute --inplace knowledge_graph/build_ad_kg.ipynb
 
 # 4. Sanity-check the result.
-jupyter nbconvert --to notebook --execute case_study/alzheimers_disease.ipynb
+python -m nbconvert --to notebook --execute --inplace case_study/alzheimers_disease.ipynb
+
+# 5. Interactive explorer -> datasets/data/kg/ad_kg_explorer.html
+python knowledge_graph/visualize_ad_kg.py
 ```
 
-Steps 1 and 2 hit live public APIs/FTP servers and, for DisGeNET and NIAGADS,
-require a manual download first (see the relevant script's docstring) --
+(`python -m nbconvert` works even when the `jupyter` launcher isn't on PATH, as
+with the Windows Store Python.)
+
+Steps 1 and 2 hit live public APIs/FTP servers. DisGeNET and NIAGADS require a
+manual download first (see the relevant script's docstring); until then their
+scripts print a `[skip]` message and the rest of the pipeline runs without them,
 exactly as PrimeKG's own pipeline requires manual steps for DrugBank, UMLS,
 and Drug Central.
+
+Source endpoints changed since this pipeline was first written: the GWAS
+Catalog's `/api/search/downloads/full` endpoint is gone (releases are on
+`ftp.ebi.ac.uk`), and PharmGKB is now ClinPGx (`api.clinpgx.org`).
 
 ## Keeping it current (dynamic integration)
 

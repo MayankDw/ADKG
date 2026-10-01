@@ -14,10 +14,14 @@ subtypes (early-onset/familial AD, late-onset AD, AD with cerebral amyloid
 angiopathy, etc.) and emits a gene-disease edge list in the harmonized KG schema.
 """
 import re
+import sys
+from pathlib import Path
+
 import pandas as pd
 
-IN_PATH = "../data/disgenet/curated_gene_disease_associations.tsv"
-OUT_PATH = "../data/disgenet/disgenet_ad_gene_disease.csv"
+DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "disgenet"
+IN_PATH = DATA_DIR / "curated_gene_disease_associations.tsv"
+OUT_PATH = DATA_DIR / "disgenet_ad_gene_disease.csv"
 
 # Known UMLS CUIs for Alzheimer's disease and closely related concepts.
 AD_CUIS = {
@@ -56,12 +60,16 @@ def build_edges(ad_df):
         "y_name": df["diseaseName"],
         "y_source": "DisGeNET",
     })
-    if "score" in ad_df.columns:
-        edges["evidence_score"] = ad_df["score"].values
+    if "score" in df.columns:
+        edges["evidence_score"] = df["score"].values
     return edges.drop_duplicates()
 
 
 if __name__ == "__main__":
+    if not IN_PATH.exists():
+        print(f"[skip] {IN_PATH} not found. DisGeNET requires a login/API key for bulk downloads;\n"
+              "       place curated_gene_disease_associations.tsv there and re-run this script.")
+        sys.exit(0)
     associations = load_associations()
     ad_associations = filter_ad(associations)
     print(f"{len(ad_associations)} Alzheimer's-related DisGeNET associations found "
