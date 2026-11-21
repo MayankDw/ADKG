@@ -1,0 +1,81 @@
+group,gene,in_graph,linked_to_AD,n_sources,sources,linked_without_GWAS
+Bellenguez 2022 known,CR1,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,BIN1,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,INPP5D,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,CLNK,False,False,0,,False
+Bellenguez 2022 known,HLA-DQA1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,UNC5CL,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,TREM2,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,TREML2,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,CD2AP,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,EPDR1,False,False,0,,False
+Bellenguez 2022 known,SPDYE3,False,False,0,,False
+Bellenguez 2022 known,EPHA1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,PTK2B,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,CLU,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,USP6NL,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,SPI1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,MS4A4A,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,EED,False,False,0,,False
+Bellenguez 2022 known,SORL1,True,True,3,"ClinVar, GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,FERMT2,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,SLC24A4,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,SPPL2A,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,MINDY2,False,False,0,,False
+Bellenguez 2022 known,APH1B,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,BCKDK,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,IL34,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,PLCG2,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,SCIMP,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,WNT3,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,ABI3,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,TSPOAP1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,ACE,True,True,2,"GWAS_Catalog, PharmGKB",True
+Bellenguez 2022 known,ABCA7,True,True,3,"ClinVar, GWAS_Catalog, PubTator3",True
+Bellenguez 2022 known,CASS4,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 known,ADAMTS1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,SORT1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,ADAM17,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 new,PRKD3,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,NCK2,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,WDR12,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,MME,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,IDUA,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,RHOH,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,ANKH,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,COX7C,False,False,0,,False
+Bellenguez 2022 new,TNIP1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,RASGEF1C,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,HS3ST5,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,UMAD1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,ICA1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,TMEM106B,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 new,JAZF1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,SEC61G,False,False,0,,False
+Bellenguez 2022 new,CTSB,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,SHARPIN,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,ABCA1,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 new,ANK3,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,TSPAN14,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,BLNK,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,PLEKHA1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,TPCN1,True,True,2,"GWAS_Catalog, PubTator3",True
+Bellenguez 2022 new,SNX1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,CTSH,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,DOC2A,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,MAF,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,FOXF1,False,False,0,,False
+Bellenguez 2022 new,PRDM7,False,False,0,,False
+Bellenguez 2022 new,WDR81,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,MYO15A,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,GRN,True,True,2,"ClinVar, GWAS_Catalog",True
+Bellenguez 2022 new,KLF16,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,SIGLEC11,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,LILRB2,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,RBCK1,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,SLC2A4RG,True,True,1,GWAS_Catalog,False
+Bellenguez 2022 new,APP,True,True,3,"ClinVar, GWAS_Catalog, PubTator3",True
+Mendelian / APOE,APP,True,True,3,"ClinVar, GWAS_Catalog, PubTator3",True
+Mendelian / APOE,PSEN1,True,True,2,"ClinVar, PubTator3",True
+Mendelian / APOE,PSEN2,True,True,2,"ClinVar, PubTator3",True
+Mendelian / APOE,APOE,True,True,4,"ClinVar, GWAS_Catalog, PharmGKB, PubTator3",True

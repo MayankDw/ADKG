@@ -7,3 +7,4 @@ notebook
 nbconvert
 nbformat
 ipykernel
+scipy

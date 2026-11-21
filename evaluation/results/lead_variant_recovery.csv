@@ -1,0 +1,78 @@
+locus,group,lead_variants,any_lead_linked_to_AD,AD_nodes,sources,gene_named_in_graph
+CR1,known,rs679515,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+BIN1,known,rs6733839,True,Alzheimer's disease; Alzheimer's disease neuropathologic change; age of onset of Alzheimer disease; family history of Alzheimer's disease,GWAS_Catalog,True
+INPP5D,known,rs10933431,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+CLNK,known,rs6846529,True,Alzheimer's disease,GWAS_Catalog,False
+HLA-DQA1,known,rs6605556,True,Alzheimer's disease,GWAS_Catalog,True
+UNC5CL,known,rs10947943,True,Alzheimer's disease,GWAS_Catalog,True
+TREM2,known,rs143332484;rs75932628,True,Alzheimer's disease; age of onset of Alzheimer disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+TREML2,known,rs60755019,True,Alzheimer's disease,GWAS_Catalog,True
+CD2AP,known,rs7767350,True,Alzheimer's disease,GWAS_Catalog,True
+EPDR1,known,rs6966331,True,Alzheimer's disease,GWAS_Catalog,False
+SPDYE3,known,rs7384878,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,False
+EPHA1,known,rs11771145,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+PTK2B,known,rs73223431,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+CLU,known,rs11787077,True,Alzheimer's disease,GWAS_Catalog,True
+USP6NL,known,rs7912495,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+SPI1,known,rs10437655,True,Alzheimer's disease,GWAS_Catalog,True
+MS4A4A,known,rs1582763,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+EED,known,rs3851179,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,False
+SORL1,known,rs74685827;rs11218343,True,Alzheimer's disease; Alzheimer's disease biomarker measurement; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+FERMT2,known,rs17125924,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+SLC24A4,known,rs7401792;rs12590654,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+SPPL2A,known,rs8025980,True,Alzheimer's disease,GWAS_Catalog,True
+MINDY2,known,rs602602,True,Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,False
+APH1B,known,rs117618017,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+BCKDK,known,rs889555,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+IL34,known,rs4985556,True,Alzheimer's disease,GWAS_Catalog,True
+PLCG2,known,rs12446759;rs72824905,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+SCIMP,known,rs7225151,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+WNT3,known,rs199515,True,Alzheimer's disease,GWAS_Catalog,True
+ABI3,known,rs616338,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+TSPOAP1,known,rs2526377,True,Alzheimer's disease,GWAS_Catalog,True
+ACE,known,rs4277405,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+ABCA7,known,rs12151021,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+CASS4,known,rs6014724,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+ADAMTS1,known,rs2830489,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+SORT1,new,rs141749679,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+ADAM17,new,rs72777026,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+PRKD3,new,rs17020490,True,Alzheimer's disease,GWAS_Catalog,True
+NCK2,new,rs143080277,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+WDR12,new,rs139643391,True,Alzheimer's disease,GWAS_Catalog,True
+MME,new,rs16824536;rs61762319,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+IDUA,new,rs3822030,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+RHOH,new,rs2245466,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+ANKH,new,rs112403360,True,Alzheimer's disease,GWAS_Catalog,True
+COX7C,new,rs62374257,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,False
+TNIP1,new,rs871269,True,Alzheimer's disease; family history of Alzheimer's disease; late-onset Alzheimers disease,GWAS_Catalog,True
+RASGEF1C,new,rs113706587,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+HS3ST5,new,rs785129,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+UMAD1,new,rs6943429,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+ICA1,new,rs10952097,True,Alzheimer's disease,GWAS_Catalog,True
+TMEM106B,new,rs13237518,True,Alzheimer's disease,GWAS_Catalog,True
+JAZF1,new,rs1160871,True,Alzheimer's disease,GWAS_Catalog,True
+SEC61G,new,rs76928645,True,Alzheimer's disease,GWAS_Catalog,False
+CTSB,new,rs1065712,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+SHARPIN,new,rs34173062,True,Alzheimer's disease; age of onset of Alzheimer disease; family history of Alzheimer's disease,GWAS_Catalog,True
+ABCA1,new,rs1800978,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+ANK3,new,rs7068231,True,Alzheimer's disease,GWAS_Catalog,True
+TSPAN14,new,rs6586028,True,Alzheimer's disease,GWAS_Catalog,True
+BLNK,new,rs6584063,True,Alzheimer's disease,GWAS_Catalog,True
+PLEKHA1,new,rs7908662,True,Alzheimer's disease,GWAS_Catalog,True
+TPCN1,new,rs6489896,True,Alzheimer's disease,GWAS_Catalog,True
+IGH gene cluster,new,rs7157106;rs10131280,True,Alzheimer's disease,GWAS_Catalog,False
+SNX1,new,rs3848143,True,Alzheimer's disease,GWAS_Catalog,True
+CTSH,new,rs12592898,True,Alzheimer's disease,GWAS_Catalog,True
+DOC2A,new,rs1140239,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+MAF,new,rs450674,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+FOXF1,new,rs16941239,True,Alzheimer's disease,GWAS_Catalog,False
+PRDM7,new,rs56407236,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,False
+WDR81,new,rs35048651,True,Alzheimer's disease,GWAS_Catalog,True
+MYO15A,new,rs2242595,True,Alzheimer's disease,GWAS_Catalog,True
+GRN,new,rs5848,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+KLF16,new,rs149080927,True,Alzheimer's disease,GWAS_Catalog,True
+SIGLEC11,new,rs9304690,True,Alzheimer's disease,GWAS_Catalog,True
+LILRB2,new,rs587709,True,Alzheimer's disease,GWAS_Catalog,True
+RBCK1,new,rs1358782,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True
+SLC2A4RG,new,rs6742,True,Alzheimer's disease,GWAS_Catalog,True
+APP,new,rs2154481,True,Alzheimer's disease; family history of Alzheimer's disease,GWAS_Catalog,True

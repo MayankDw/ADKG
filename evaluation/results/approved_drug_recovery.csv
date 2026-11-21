@@ -1,0 +1,11 @@
+drug,class,canonical_node,matching_nodes,direct_AD_edges,direct_AD_sources,linked_genes
+donepezil,cholinesterase inhibitor,True,33,41,"ClinicalTrials.gov, PubTator3","APOE, BCHE, CHAT, CHRNA7, CYP2D6, PRKCE"
+galantamine,cholinesterase inhibitor,True,11,12,"ClinicalTrials.gov, PubTator3","APOE, CHAT, CHRNA7, CYP2D6, PRKCE"
+rivastigmine,cholinesterase inhibitor,True,22,23,"ClinicalTrials.gov, PubTator3","ACHE, APOE, BCHE, CHAT, CHRNA7, PRKCE"
+tacrine,cholinesterase inhibitor (withdrawn),False,0,0,,
+memantine,NMDA receptor antagonist,True,14,15,"ClinicalTrials.gov, PubTator3",BCHE
+aducanumab,anti-amyloid antibody (discontinued),True,3,5,"ClinicalTrials.gov, PubTator3",APOE
+lecanemab,anti-amyloid antibody,True,9,17,"ClinicalTrials.gov, PubTator3",APOE
+donanemab,anti-amyloid antibody,True,1,4,ClinicalTrials.gov,APOE
+brexpiprazole,agitation in AD dementia,True,3,6,"ClinicalTrials.gov, PubTator3",CYP2D6
+suvorexant,insomnia in AD,True,2,3,"ClinicalTrials.gov, PubTator3",

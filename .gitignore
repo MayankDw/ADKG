@@ -4,3 +4,4 @@ __pycache__
 
 # ignore downloaded/derived data
 datasets/data/
+paper/
