@@ -5,3 +5,5 @@ __pycache__
 # ignore downloaded/derived data
 datasets/data/
 paper/
+AlzKG_Abstract_and_Summary.md
+knowledge_graph/ad_kg_explorer_template.html
